@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Catifyy - Data Manager</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root{
+      --bg: #eaf1ff;
+      --surface: #f6f8ff;
+      --text: #2d3348;
+      --primary: #6e85ff;
+      --accent: #ff8db1;
+      --shadow-dark: #ccd6ec;
+      --shadow-light: #ffffff;
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial;
+      line-height: 1.55;
+    }
+    img{ max-width: 100%; display: block; }
+    a{ color: inherit; text-decoration: none; }
+
+    .container{ max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+    header.nav{
+      background: var(--bg);
+      border-bottom: 1px solid color-mix(in srgb, var(--bg) 70%, #aab7d8);
+      padding: 14px 0;
+    }
+    
+    .nav-inner{ 
+      display:flex; 
+      align-items:center; 
+      justify-content:space-between; 
+      gap:16px; 
+    }
+
+    .nav-links { 
+      display:flex; 
+      gap:18px; 
+      align-items:center; 
+    }
+
+    .nav-links a { 
+      color: var(--primary); 
+      font-weight: 600; 
+      transition: opacity .2s ease; 
+    }
+
+    .nav-links a:hover { 
+      opacity: 0.8; 
+    }
+
+    /* Main content */
+    .data-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .data-section {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: 12px 12px 28px var(--shadow-dark), -12px -12px 28px var(--shadow-light);
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      border-bottom: 2px solid rgba(110, 133, 255, 0.1);
+      padding-bottom: 16px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 24px;
+      color: var(--text);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #5e73ff);
+      color: white;
+      box-shadow: 6px 6px 12px var(--shadow-dark);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 8px 8px 16px var(--shadow-dark);
+    }
+
+    .btn-danger {
+      background: #ff6b6b;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #ff5252;
+    }
+
+    .btn-small {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    /* Data display */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .data-table thead {
+      background: rgba(110, 133, 255, 0.05);
+    }
+
+    .data-table th {
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--primary);
+      border-bottom: 2px solid rgba(110, 133, 255, 0.2);
+    }
+
+    .data-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(110, 133, 255, 0.1);
+    }
+
+    .data-table tbody tr:hover {
+      background: rgba(110, 133, 255, 0.03);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      opacity: 0.6;
+    }
+
+    .empty-state i {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: 0.3;
+    }
+
+    /* Current user badge */
+    .user-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), #5e73ff);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .info-box {
+      background: rgba(110, 133, 255, 0.05);
+      border-left: 4px solid var(--primary);
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+
+    .info-box strong {
+      color: var(--primary);
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 20px 0;
+      opacity: 0.9;
+      border-top: 1px solid color-mix(in srgb, var(--bg) 70%, #aab7d8);
+      text-align: center;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 32px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-header {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .modal-body {
+      margin-bottom: 24px;
+      line-height: 1.8;
+    }
+
+    .modal-footer {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    @media(max-width: 768px) {
+      .section-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      .data-table {
+        font-size: 14px;
+      }
+
+      .data-table th,
+      .data-table td {
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <img src="./images/cat.png" height="80px" width="100px" alt="Catifyy Logo">
+      </div>
+      <nav class="nav-links">
+        <a href="index.html"><i class="fa-solid fa-home"></i> Home</a>
+        <a href="login.html"><i class="fa-solid fa-sign-in-alt"></i> Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="data-container">
+    <!-- Current User Section -->
+    <div class="data-section">
+      <div class="section-header">
+        <h2>👤 Current Session</h2>
+        <button class="btn btn-danger" onclick="logout()">
+          <i class="fa-solid fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+      
+      <div id="currentUserDisplay">
+        <div class="empty-state">
+          <i class="fa-solid fa-sign-in-alt"></i>
+          <p>No user logged in. <a href="login.html">Login here</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Users Database Section -->
+    <div class="data-section">
+      <div class="section-header">
+        <h2>📊 Registered Users</h2>
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="refreshData()">
+            <i class="fa-solid fa-sync"></i> Refresh
+          </button>
+          <button class="btn btn-danger" onclick="confirmClearAllUsers()">
+            <i class="fa-solid fa-trash"></i> Clear All
+          </button>
+        </div>
+      </div>
+
+      <div id="usersDisplay"></div>
+    </div>
+
+    <!-- Liked Songs Section -->
+    <div class="data-section">
+      <div class="section-header">
+        <h2>❤️ Liked Songs</h2>
+        <button class="btn btn-danger btn-small" onclick="confirmClearLiked()">
+          <i class="fa-solid fa-trash"></i> Clear
+        </button>
+      </div>
+      <div id="likedDisplay"></div>
+    </div>
+
+    <!-- Playlists Section -->
+    <div class="data-section">
+      <div class="section-header">
+        <h2>🎵 User Playlists</h2>
+        <button class="btn btn-danger btn-small" onclick="confirmClearPlaylists()">
+          <i class="fa-solid fa-trash"></i> Clear
+        </button>
+      </div>
+      <div id="playlistsDisplay"></div>
+    </div>
+  </main>
+
+  <!-- Confirm Modal -->
+  <div id="confirmModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">⚠️ Confirm Action</div>
+      <div class="modal-body" id="confirmMessage"></div>
+      <div class="modal-footer">
+        <button class="btn" onclick="closeModal()" style="background: var(--surface); box-shadow: 2px 2px 4px var(--shadow-dark);">Cancel</button>
+        <button class="btn btn-danger" id="confirmBtn">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>🎵 Catifyy Data Manager | All data stored in browser LocalStorage</p>
+  </footer>
+
+  <script>
+    // Data Manager Script
+
+    function refreshData() {
+      displayCurrentUser();
+      displayUsers();
+      displayLiked();
+      displayPlaylists();
+    }
+
+    function displayCurrentUser() {
+      const currentUser = localStorage.getItem('currentUser');
+      const container = document.getElementById('currentUserDisplay');
+
+      if (currentUser) {
+        const user = JSON.parse(currentUser);
+        container.innerHTML = `
+          <div class="info-box">
+            <p><strong>Name:</strong> ${user.firstName} ${user.lastName}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Logged in:</strong> ${new Date(user.loginTime).toLocaleString()}</p>
+            <span class="user-badge">✓ LOGGED IN</span>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fa-solid fa-sign-in-alt"></i>
+            <p>No user logged in. <a href="login.html">Login here</a></p>
+          </div>
+        `;
+      }
+    }
+
+    function displayUsers() {
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      const container = document.getElementById('usersDisplay');
+
+      if (users.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fa-solid fa-users"></i>
+            <p>No users registered yet. <a href="signup.html">Sign up</a></p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = `
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Password</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      users.forEach((user, index) => {
+        html += `
+          <tr>
+            <td>${user.firstName}</td>
+            <td>${user.lastName}</td>
+            <td>${user.email}</td>
+            <td><code style="font-size: 12px;">••••••••</code></td>
+            <td>
+              <button class="btn btn-danger btn-small" onclick="deleteUser(${index})">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+
+      html += `
+          </tbody>
+        </table>
+        <p style="margin-top: 16px; font-size: 12px; opacity: 0.6;">
+          Total users: <strong>${users.length}</strong>
+        </p>
+      `;
+
+      container.innerHTML = html;
+    }
+
+    function displayLiked() {
+      const liked = JSON.parse(localStorage.getItem('catifyy_liked_songs')) || [];
+      const container = document.getElementById('likedDisplay');
+
+      if (liked.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fa-solid fa-heart"></i>
+            <p>No liked songs yet</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = `
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Song Title</th>
+              <th>Artist</th>
+              <th>Liked At</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      liked.forEach(song => {
+        const likedDate = new Date(song.likedAt).toLocaleString();
+        html += `
+          <tr>
+            <td>${song.title}</td>
+            <td>${song.artist}</td>
+            <td>${likedDate}</td>
+          </tr>
+        `;
+      });
+
+      html += `
+          </tbody>
+        </table>
+        <p style="margin-top: 16px; font-size: 12px; opacity: 0.6;">
+          Total liked songs: <strong>${liked.length}</strong>
+        </p>
+      `;
+
+      container.innerHTML = html;
+    }
+
+    function displayPlaylists() {
+      const playlists = JSON.parse(localStorage.getItem('catifyy_playlists')) || [];
+      const container = document.getElementById('playlistsDisplay');
+
+      if (playlists.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fa-solid fa-music"></i>
+            <p>No playlists created yet. <a href="create.html">Create one</a></p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = `
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Playlist Name</th>
+              <th>Songs</th>
+              <th>Description</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      playlists.forEach(playlist => {
+        const createdDate = new Date(playlist.createdAt).toLocaleString();
+        html += `
+          <tr>
+            <td><strong>${playlist.name}</strong></td>
+            <td>${playlist.songs.length} songs</td>
+            <td>${playlist.description || '—'}</td>
+            <td>${createdDate}</td>
+          </tr>
+        `;
+      });
+
+      html += `
+          </tbody>
+        </table>
+        <p style="margin-top: 16px; font-size: 12px; opacity: 0.6;">
+          Total playlists: <strong>${playlists.length}</strong>
+        </p>
+      `;
+
+      container.innerHTML = html;
+    }
+
+    function deleteUser(index) {
+      showConfirm(
+        'Delete this user permanently?',
+        () => {
+          let users = JSON.parse(localStorage.getItem('users')) || [];
+          users.splice(index, 1);
+          localStorage.setItem('users', JSON.stringify(users));
+          refreshData();
+        }
+      );
+    }
+
+    function logout() {
+      showConfirm(
+        'Logout from current session?',
+        () => {
+          localStorage.removeItem('currentUser');
+          displayCurrentUser();
+          alert('✅ Logged out successfully');
+        }
+      );
+    }
+
+    function confirmClearAllUsers() {
+      showConfirm(
+        'Delete ALL users? This cannot be undone!',
+        () => {
+          localStorage.removeItem('users');
+          refreshData();
+          alert('✅ All users cleared');
+        }
+      );
+    }
+
+    function confirmClearLiked() {
+      showConfirm(
+        'Delete all liked songs?',
+        () => {
+          localStorage.removeItem('catifyy_liked_songs');
+          refreshData();
+          alert('✅ Liked songs cleared');
+        }
+      );
+    }
+
+    function confirmClearPlaylists() {
+      showConfirm(
+        'Delete all playlists? This cannot be undone!',
+        () => {
+          localStorage.removeItem('catifyy_playlists');
+          refreshData();
+          alert('✅ All playlists cleared');
+        }
+      );
+    }
+
+    function showConfirm(message, callback) {
+      const modal = document.getElementById('confirmModal');
+      const messageEl = document.getElementById('confirmMessage');
+      const confirmBtn = document.getElementById('confirmBtn');
+
+      messageEl.textContent = message;
+      modal.classList.add('active');
+
+      confirmBtn.onclick = () => {
+        callback();
+        closeModal();
+      };
+    }
+
+    function closeModal() {
+      document.getElementById('confirmModal').classList.remove('active');
+    }
+
+    // Load data on page load
+    window.addEventListener('DOMContentLoaded', refreshData);
+
+    // Refresh data every 5 seconds
+    setInterval(refreshData, 5000);
+  </script>
+
+</body>
+</html>
