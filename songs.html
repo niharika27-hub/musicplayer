@@ -88,31 +88,203 @@
       box-shadow: 8px 8px 18px rgba(110,133,255,.35), -8px -8px 18px #fff;
     }
 
+    #songSearchStatus{
+      display: none;
+      margin-bottom: 24px;
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: 6px 6px 14px var(--shadow-dark), -6px -6px 14px var(--shadow-light);
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    #songSearchStatus strong{
+      color: var(--primary);
+    }
+
+    #songSearchStatus span{
+      font-weight: 600;
+    }
+
+    #songSearchStatus[data-state="empty"]{
+      opacity: 0.8;
+    }
+
+    #songSearchReference{
+      display: none;
+      margin: -12px 0 24px;
+      padding: 0 20px 20px;
+      background: transparent;
+      color: var(--text);
+    }
+
+    #songSearchReference ul{
+      list-style: none;
+      margin: 12px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    #songSearchReference li{
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: 4px 4px 10px var(--shadow-dark), -4px -4px 10px var(--shadow-light);
+      transition: transform 0.15s ease;
+    }
+
+    #songSearchReference li:hover{
+      transform: translateY(-2px);
+    }
+
+    #songSearchReference .result-index{
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, var(--primary), #7e97ff);
+      color: #fff;
+      font-size: 0.85rem;
+      display: grid;
+      place-items: center;
+      font-weight: 600;
+    }
+
+    #songSearchReference .result-meta{
+      display: grid;
+      gap: 4px;
+    }
+
+    #songSearchReference .result-title{
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    #songSearchReference .result-artist{
+      font-size: 0.9rem;
+      color: var(--text-secondary, color-mix(in srgb, var(--text) 60%, transparent));
+    }
+
+    #songSearchReference .result-album{
+      font-size: 0.85rem;
+      color: var(--text-secondary, color-mix(in srgb, var(--text) 50%, transparent));
+    }
+
     /* Navigation */
     header.nav{
-      position: sticky; top: 0; z-index: 5;
-      backdrop-filter: blur(6px);
-      background: color-mix(in srgb, var(--bg) 85%, white);
-      border-bottom: 1px solid color-mix(in srgb, var(--bg) 70%, #aab7d8);
+      position: sticky; 
+      top: 0; 
+      z-index: 5;
+      background: var(--surface);
+      border-bottom: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
+      box-shadow: 0 4px 12px var(--shadow-dark);
     }
-    .nav-inner{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0; }
     
+    .nav-inner{ 
+      display: flex;
+      align-items: center;
+      justify-content: space-between; 
+      gap: 20px; 
+      padding: 14px 0;
+    }
 
+    header.nav .container{
+      padding: 0 32px 0 16px;
+      margin: 0;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .brand{
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      margin-right: 16px;
+      padding-left: 0;
+    }
+
+    .brand img{
+      display: block;
+    }
+   
     .nav-links{
-        font-size: 2rem;
+      display:flex;
+      align-items:center;
+      gap:24px;
+      font-size: 2rem;
+      flex-shrink:0;
+      margin-left:auto;
+    }
+
+    .nav-links a,
+    .nav-links button{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: var(--primary);
+      transition: opacity .2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links button:hover{
+      opacity:.85;
+    }
+
+    .nav-links button{
+      background: transparent;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      font-size: inherit;
+    }
+
+    .nav-links button:focus-visible{
+      outline: 2px solid var(--primary);
+      outline-offset: 4px;
+    }
+
+    .nav-links i{
+      color: inherit;
+    }
+
+    .nav-links a:focus{
+      outline: none;
+    }
+
+    .nav-links a:focus-visible{
+      outline: 2px solid var(--primary);
+      outline-offset: 4px;
     }
 
     /* Search with filters */
-    .search-wrap{ flex: 1 1 520px; display:flex; gap:10px; align-items:center; justify-content:center; }
-    .search{ flex:1; display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:999px; background:var(--surface);
-      box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light);
+    .search-wrap{ 
+        flex: 1 1 700px;
+        display:flex;
+        gap: 20px;
+        align-items:center; 
+        justify-content:center; 
+    }
+    .search{ 
+      width: 100px;
+         flex:1;
+         display:flex; 
+         align-items:center;
+         gap:10px; 
+         padding:10px 16px; 
+         border-radius:999px; 
+         background:var(--surface);
+         box-shadow: inset 6px 6px 12px var(--shadow-dark);
     }
     .search input{
       flex:1; border:0; outline:0; background:transparent; color:var(--text); font-size:14px;
     }
-    .filters{ display:flex; gap:8px; overflow:auto; }
-    .nav-links{ display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
-    .nav-links a{ opacity:.9; }
+    .filters{ display:flex; gap:18px; overflow:auto; }
+    .filters a{ color: inherit; }
     
 
     /* Section headings */
@@ -322,41 +494,41 @@
   <header class="nav">
     <div class="container nav-inner">
       <div class="brand">
-       
-            <img src="images/cat.png" height="100px" width="120px">
-      
+        <img id="logo-img" src="./images/cat.png" height="100px" width="120px" alt="Catifyy Logo">
       </div>
 
       <div class="search-wrap">
         <form class="search" method="post">
-         
           <i class="fa-solid fa-circle fa-xs" style="color: #000000;"></i>
-          <input id="q" name="q" placeholder="Search songs, artists..." />
+          <input id="q" name="q" placeholder="Search songs, artists, albums..." />
         </form>
         <div class="filters">
           <div class="filter-group">
             <input type="radio" name="scope" id="f-songs" checked />
-            <label class="chip" for="f-songs">Songs</label>
+            <label class="chip" for="f-songs" data-active="true">Songs</label>
             
-            <input type="radio" name="scope" id="f-artists" />
-            <label class="chip" for="f-artists"><a href="albums.html">Albums</a></label>
+            <input type="radio" name="scope" id="f-albums" />
+            <label class="chip" for="f-albums"><a href="albums.html">Albums</a></label>
           
-            <input type="radio" name="scope" id="f-playlists" />
-            <label class="chip" for="f-playlists">Library</label>
+            <input type="radio" name="scope" id="f-library" />
+            <label class="chip" for="f-library"><a href="library.html">Library</a></label>
 
-            <input type="radio" name="scope" id="f-playlists2" />
-            <label class="chip" for="f-playlists2"><a href="playlist.html">Playlist</a></label>
+            <input type="radio" name="scope" id="f-playlists" />
+            <label class="chip" for="f-playlists"><a href="playlist.html">Playlist</a></label>
             
-            <input type="radio" name="scope" id="f-playlists3" />
-          <label class="chip" for="f-playlists2"><a href="liked.html">Liked</a></label>
+            <input type="radio" name="scope" id="f-liked" />
+            <label class="chip" for="f-liked"><a href="liked.html">Liked</a></label>
           </div>
         </div>
       </div>
 
       <nav class="nav-links">
-         <a href="index.html"><i class="fa-solid fa-house-user" style="color: #6590e6;"></i></a>
-        <a href="create.html"> <i class="fa-solid fa-plus" style="color: #6590e6;"></i></a>
-        <a href="login.html"> <i class="fa-solid fa-user " style="color: #6590e6;"></i> </a>
+        <a href="index.html" title="Home"><i class="fa-solid fa-house-user"></i></a>
+        <a href="create.html" title="Create Playlist"><i class="fa-solid fa-plus"></i></a>
+        <button id="theme-toggle" class="nav-toggle" title="Toggle theme" aria-label="Toggle theme">
+          <i id="theme-icon" class="fa-solid fa-moon"></i>
+        </button>
+        <a href="signup.html" title="Login"><i class="fa-solid fa-user"></i></a>
       </nav>
     </div>
   </header>
@@ -990,9 +1162,32 @@
 
   <script>
     (function(){
-      // Helper functions
-      function qs(sel){ return document.querySelector(sel); }
-      function qsa(sel){ return Array.from(document.querySelectorAll(sel)); }
+  // Helper functions
+  function qs(sel){ return document.querySelector(sel); }
+  function qsa(sel){ return Array.from(document.querySelectorAll(sel)); }
+
+  const DIACRITICS_REGEX = /[\u0300-\u036f]/g;
+  const SONG_CATALOG_STORAGE_KEY = 'catifyy_song_catalog';
+
+      function normalizeText(str){
+        if(!str) return '';
+        try{
+          return str.toString().toLowerCase().normalize('NFD').replace(DIACRITICS_REGEX, '');
+        }catch(e){
+          return str.toString().toLowerCase();
+        }
+      }
+
+      function escapeHtml(str){
+        if(str == null) return '';
+        return str.toString().replace(/[&<>"']/g, ch => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+        })[ch] || ch);
+      }
 
       // Player elements
       const bottomPlayer = qs('#bottomPlayer');
@@ -1074,11 +1269,19 @@
 
       // Build songs list from page
       const songs = [];
+      const songIndexById = new Map();
       qsa('.song-item').forEach((item, idx) => {
         const artwork = item.querySelector('.song-artwork img');
         const title = item.querySelector('.song-title');
         const artist = item.querySelector('.song-artist');
         const album = item.querySelector('.song-album');
+        const anchorId = item.id || `song-${idx + 1}`;
+        if(!item.id) item.id = anchorId;
+        const sectionTitle = (() => {
+          const section = item.closest('section');
+          const heading = section ? section.querySelector('h2') : null;
+          return heading ? heading.textContent.trim() : '';
+        })();
         
         songs.push({
           el: item,
@@ -1086,9 +1289,214 @@
           artist: artist ? artist.textContent.trim() : '',
           album: album ? album.textContent.trim() : '',
           artwork: artwork ? artwork.src : '',
-          src: item.dataset.src || null
+          src: item.dataset.src || null,
+          section: sectionTitle,
+          anchorId,
+          searchIndex: normalizeText([
+            title ? title.textContent : '',
+            artist ? artist.textContent : '',
+            album ? album.textContent : '',
+            sectionTitle
+          ].join(' '))
         });
+        songIndexById.set(anchorId, songs.length - 1);
       });
+
+      const songCatalog = songs.map(song => ({
+        id: song.anchorId,
+        title: song.title,
+        artist: song.artist,
+        album: song.album,
+        section: song.section,
+        query: song.searchIndex
+      }));
+
+      function persistSongCatalog(){
+        try{
+          localStorage.setItem(SONG_CATALOG_STORAGE_KEY, JSON.stringify({
+            updated: Date.now(),
+            items: songCatalog
+          }));
+        } catch(e){
+          console.warn('Failed to persist song catalog', e);
+        }
+      }
+
+      persistSongCatalog();
+
+  let lastMatches = songs.slice();
+  let lastQuery = '';
+
+      const heroSection = qs('.songs-hero');
+      let searchStatusEl = qs('#songSearchStatus');
+      if(!searchStatusEl){
+        searchStatusEl = document.createElement('div');
+        searchStatusEl.id = 'songSearchStatus';
+        if(heroSection && heroSection.parentNode){
+          heroSection.parentNode.insertBefore(searchStatusEl, heroSection.nextElementSibling);
+        } else {
+          const main = qs('main');
+          if(main){
+            main.insertBefore(searchStatusEl, main.firstChild);
+          }
+        }
+      }
+
+      let searchReferenceEl = qs('#songSearchReference');
+      if(!searchReferenceEl){
+        searchReferenceEl = document.createElement('div');
+        searchReferenceEl.id = 'songSearchReference';
+        if(searchStatusEl && searchStatusEl.parentNode){
+          searchStatusEl.parentNode.insertBefore(searchReferenceEl, searchStatusEl.nextSibling);
+        }
+      }
+
+      function updateSectionVisibility(){
+        qsa('section.section').forEach(section => {
+          const items = Array.from(section.querySelectorAll('.song-item'));
+          if(!items.length) return;
+          const hasVisible = items.some(item => item.style.display !== 'none');
+          section.style.display = hasVisible ? '' : 'none';
+        });
+      }
+
+      function updateSearchStatus(query, count){
+        if(!searchStatusEl) return;
+        if(!query){
+          searchStatusEl.style.display = 'none';
+          searchStatusEl.removeAttribute('data-state');
+          searchStatusEl.textContent = '';
+          return;
+        }
+
+        const safeQuery = escapeHtml(query.trim());
+        searchStatusEl.style.display = 'block';
+
+        if(count > 0){
+          searchStatusEl.dataset.state = 'results';
+          searchStatusEl.innerHTML = `Showing <strong>${count}</strong> result${count === 1 ? '' : 's'} for "<span>${safeQuery}</span>"`;
+        } else {
+          searchStatusEl.dataset.state = 'empty';
+          searchStatusEl.innerHTML = `No songs found for "<span>${safeQuery}</span>".`;
+        }
+      }
+
+      function clearSearchStatus(){
+        updateSearchStatus('', songs.length);
+      }
+
+      function clearSearchReferences(){
+        if(!searchReferenceEl) return;
+        searchReferenceEl.style.display = 'none';
+        searchReferenceEl.innerHTML = '';
+      }
+
+      function updateSearchReferences(query, matches){
+        if(!searchReferenceEl) return;
+        if(!query || !matches || !matches.length){
+          clearSearchReferences();
+          return;
+        }
+
+        searchReferenceEl.style.display = 'block';
+
+        const fragment = document.createDocumentFragment();
+        const list = document.createElement('ul');
+
+        matches.slice(0, 6).forEach((song, idx) => {
+          const li = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = song.anchorId ? `#${song.anchorId}` : '#';
+          link.className = 'result-meta';
+          link.setAttribute('aria-label', `${song.title} by ${song.artist}`);
+
+          const metaParts = [];
+          if(song.artist) metaParts.push(escapeHtml(song.artist));
+          if(song.album) metaParts.push(`Album · ${escapeHtml(song.album)}`);
+          if(song.section) metaParts.push(escapeHtml(song.section));
+
+          link.innerHTML = `
+            <div class="result-title">${escapeHtml(song.title)}</div>
+            <div class="result-artist">${metaParts.join(' • ') || 'Unknown Artist'}</div>
+          `;
+
+          li.appendChild(Object.assign(document.createElement('div'), {
+            className: 'result-index',
+            textContent: String(idx + 1)
+          }));
+          li.appendChild(link);
+          list.appendChild(li);
+        });
+
+        fragment.appendChild(list);
+        searchReferenceEl.innerHTML = '';
+        searchReferenceEl.appendChild(fragment);
+      }
+
+      function applySongFilter(query){
+        const trimmed = (query || '').trim();
+        if(!trimmed){
+          return clearSongFilter();
+        }
+
+        const normalized = normalizeText(trimmed);
+        let visibleCount = 0;
+        const matches = [];
+
+        songs.forEach(song => {
+          const matchesQuery = song.searchIndex.includes(normalized);
+          if(song.el){
+            song.el.style.display = matchesQuery ? '' : 'none';
+          }
+          if(matchesQuery){
+            visibleCount += 1;
+            matches.push(song);
+          }
+        });
+
+        updateSectionVisibility();
+        updateSearchStatus(trimmed, visibleCount);
+        updateSearchReferences(trimmed, matches);
+  lastMatches = matches;
+  lastQuery = trimmed;
+        return visibleCount;
+      }
+
+      function clearSongFilter(){
+        songs.forEach(song => {
+          if(song.el) song.el.style.display = '';
+        });
+        qsa('section.section').forEach(section => {
+          const items = Array.from(section.querySelectorAll('.song-item'));
+          if(!items.length) return;
+          section.style.display = '';
+        });
+        clearSearchStatus();
+        clearSearchReferences();
+  lastMatches = songs.slice();
+  lastQuery = '';
+        return songs.length;
+      }
+
+      function getLastMatches(){
+        return lastMatches.slice();
+      }
+
+      function playSongByAnchor(anchorId, autoPlay = true){
+        if(!anchorId) return false;
+        const idx = songIndexById.get(anchorId);
+        if(typeof idx === 'number' && idx >= 0){
+          loadSong(idx, autoPlay);
+          return true;
+        }
+        return false;
+      }
+
+      function playFirstMatch(autoPlay = true){
+        if(!lastMatches.length) return false;
+        const target = lastMatches[0];
+        return playSongByAnchor(target.anchorId, autoPlay);
+      }
 
       let currentIndex = -1;
       let isPlaying = false;
@@ -1392,9 +1800,29 @@
         }
       });
 
+      // Initialize search state on load
+      clearSongFilter();
+
       // Expose for debugging
+      window.songSearch = {
+        filter: applySongFilter,
+        clear: clearSongFilter,
+        updateStatus: updateSearchStatus,
+        data: songs,
+        exportCatalog: () => songCatalog.slice(),
+        catalog: songCatalog,
+        saveCatalog: persistSongCatalog,
+        getMatches: getLastMatches,
+        getLastQuery: () => lastQuery,
+        playFirstMatch,
+        playById: playSongByAnchor
+      };
+
       window.musicPlayer = { songs, audio, loadSong, togglePlayPause, nextSong, prevSong };
     })();
   </script>
+
+  <!-- Theme script -->
+  <script src="theme.js"></script>
 </body>
 </html>

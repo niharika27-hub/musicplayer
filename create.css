@@ -77,33 +77,110 @@
       position: sticky; 
       top: 0; 
       z-index: 5;
-      
-      background: color-mix(in srgb, var(--bg) 85%, white);
-      border-bottom: 1px solid color-mix(in srgb, var(--bg) 70%, #aab7d8);
+      background: var(--surface);
+      border-bottom: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
+      box-shadow: 0 4px 12px var(--shadow-dark);
     }
-    .nav-inner{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0; }
-
     
-    .brand img {
-  height: 100px;   /* adjust logo height */
-  width: 120px;    /* keeps proportions */
-}
+    .nav-inner{ 
+      display: flex;
+      align-items: center;
+      justify-content: space-between; 
+      gap: 20px; 
+      padding: 14px 0;
+    }
 
+    header.nav .container{
+      padding: 0 32px 0 16px;
+      margin: 0;
+      max-width: 100%;
+      width: 100%;
+    }
 
+    .brand{
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      margin-right: 16px;
+      padding-left: 0;
+    }
+
+    .brand img{
+      display: block;
+    }
+   
     .nav-links{
-        font-size: 2rem;
+      display:flex;
+      align-items:center;
+      gap:24px;
+      font-size: 2rem;
+      flex-shrink:0;
+      margin-left:auto;
+    }
+
+    .nav-links a,
+    .nav-links button{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: var(--primary);
+      transition: opacity .2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links button:hover{
+      opacity:.85;
+    }
+
+    .nav-links button{
+      background: transparent;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      font-size: inherit;
+    }
+
+    .nav-links button:focus-visible{
+      outline: 2px solid var(--primary);
+      outline-offset: 4px;
+    }
+
+    .nav-links i{
+      color: inherit;
+    }
+
+    .nav-links a:focus{
+      outline: none;
+    }
+
+    .nav-links a:focus-visible{
+      outline: 2px solid var(--primary);
+      outline-offset: 4px;
     }
 
     /* Search with filters */
-    .search-wrap{ flex: 1 1 520px; display:flex; gap:10px; align-items:center; justify-content:center; }
-    .search{ flex:1; display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:999px; background:var(--surface);
-      box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light);
+    .search-wrap{ 
+        flex: 1 1 700px;
+        display:flex;
+        gap: 20px;
+        align-items:center; 
+        justify-content:center; 
+    }
+    .search{ 
+      width: 100px;
+         flex:1;
+         display:flex; 
+         align-items:center;
+         gap:10px; 
+         padding:10px 16px; 
+         border-radius:999px; 
+         background:var(--surface);
+         box-shadow: inset 6px 6px 12px var(--shadow-dark);
     }
     .search input{
       flex:1; border:0; outline:0; background:transparent; color:var(--text); font-size:14px;
     }
-    .filters{ display:flex; gap:8px; overflow:auto; }
-    .nav-links{ display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
+    .filters{ display:flex; gap:18px; overflow:auto; }
    
    
     /* Create playlist hero section */

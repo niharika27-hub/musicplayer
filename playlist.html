@@ -83,28 +83,114 @@
 
     /* Navigation */
     header.nav{
-      position: sticky; top: 0; z-index: 5;
-      backdrop-filter: blur(6px);
-      background: color-mix(in srgb, var(--bg) 85%, white);
-      border-bottom: 1px solid color-mix(in srgb, var(--bg) 70%, #aab7d8);
+      position: sticky; 
+      top: 0; 
+      z-index: 5;
+      background: var(--surface);
+      border-bottom: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
+      box-shadow: 0 4px 12px var(--shadow-dark);
     }
-    .nav-inner{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0; }
+    
+    .nav-inner{ 
+      display: flex;
+      align-items: center;
+      justify-content: space-between; 
+      gap: 20px; 
+      padding: 14px 0;
+    }
+
+    header.nav .container{
+      padding: 0 32px 0 16px;
+      margin: 0;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .brand{
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      margin-right: 16px;
+      padding-left: 0;
+    }
+
+    .brand img{
+      display: block;
+    }
    
     .nav-links{
-        font-size: 2rem;
+      display:flex;
+      align-items:center;
+      gap:24px;
+      font-size: 2rem;
+      flex-shrink:0;
+      margin-left:auto;
+    }
+
+    .nav-links a,
+    .nav-links button{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: var(--primary);
+      transition: opacity .2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links button:hover{
+      opacity:.85;
+    }
+
+    .nav-links button{
+      background: transparent;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      font-size: inherit;
+    }
+
+    .nav-links button:focus-visible{
+      outline: 2px solid var(--primary);
+      outline-offset: 4px;
+    }
+
+    .nav-links i{
+      color: inherit;
+    }
+
+    .nav-links a:focus{
+      outline: none;
+    }
+
+    .nav-links a:focus-visible{
+      outline: 2px solid var(--primary);
+      outline-offset: 4px;
     }
 
     /* Search with filters */
-    .search-wrap{ flex: 1 1 520px; display:flex; gap:10px; align-items:center; justify-content:center; }
-    .search{ flex:1; display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:999px; background:var(--surface);
-      box-shadow: inset 6px 6px 12px var(--shadow-dark), inset -6px -6px 12px var(--shadow-light);
+    .search-wrap{ 
+        flex: 1 1 700px;
+        display:flex;
+        gap: 20px;
+        align-items:center; 
+        justify-content:center; 
+    }
+    .search{ 
+      width: 100px;
+         flex:1;
+         display:flex; 
+         align-items:center;
+         gap:10px; 
+         padding:10px 16px; 
+         border-radius:999px; 
+         background:var(--surface);
+         box-shadow: inset 6px 6px 12px var(--shadow-dark);
     }
     .search input{
       flex:1; border:0; outline:0; background:transparent; color:var(--text); font-size:14px;
     }
-    .filters{ display:flex; gap:8px; overflow:auto; }
-    .nav-links{ display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
-    .nav-links a{ opacity:.9; }
+    .filters{ display:flex; gap:18px; overflow:auto; }
+    .filters a{ color: inherit; }
     
 
     /* Section headings */
@@ -402,40 +488,41 @@
   <header class="nav">
     <div class="container nav-inner">
       <div class="brand">
-       
-            <img src="images/cat.png" height="100px" width="120px">
-      
+        <img id="logo-img" src="./images/cat.png" height="100px" width="120px" alt="Catifyy Logo">
       </div>
 
       <div class="search-wrap">
         <form class="search" method="post">
-         <i class="fa-solid fa-circle fa-xs" style="color: #000000;"></i>
-          <input id="q" name="q" placeholder="Search playlists..." />
+          <i class="fa-solid fa-circle fa-xs" style="color: #000000;"></i>
+          <input id="q" name="q" placeholder="Search songs, artists, albums..." />
         </form>
         <div class="filters">
           <div class="filter-group">
             <input type="radio" name="scope" id="f-songs" />
             <label class="chip" for="f-songs"><a href="songs.html">Songs</a></label>
             
-            <input type="radio" name="scope" id="f-artists" />
-            <label class="chip" for="f-artists"><a href="albums.html">Albums</a></label>
+            <input type="radio" name="scope" id="f-albums" />
+            <label class="chip" for="f-albums"><a href="albums.html">Albums</a></label>
           
             <input type="radio" name="scope" id="f-library" />
             <label class="chip" for="f-library"><a href="library.html">Library</a></label>
 
             <input type="radio" name="scope" id="f-playlists" checked />
-            <label class="chip" for="f-playlists">Playlists</label>
+            <label class="chip" for="f-playlists" data-active="true">Playlists</label>
             
             <input type="radio" name="scope" id="f-liked" />
-           <label class="chip" for="f-library"><a href="liked.html">Liked</a></label>
+            <label class="chip" for="f-liked"><a href="liked.html">Liked</a></label>
           </div>
         </div>
       </div>
 
       <nav class="nav-links">
-        <a href="index.html"><i class="fa-solid fa-house-user" style="color: #6590e6;"></i></a>
-        <a href="create.html"> <i class="fa-solid fa-plus" style="color: #6590e6;"></i></a>
-        <a href="login.html"> <i class="fa-solid fa-user " style="color: #6590e6;"></i> </a>
+        <a href="index.html" title="Home"><i class="fa-solid fa-house-user"></i></a>
+        <a href="create.html" title="Create Playlist"><i class="fa-solid fa-plus"></i></a>
+        <button id="theme-toggle" class="nav-toggle" title="Toggle theme" aria-label="Toggle theme">
+          <i id="theme-icon" class="fa-solid fa-moon"></i>
+        </button>
+        <a href="signup.html" title="Login"><i class="fa-solid fa-user"></i></a>
       </nav>
     </div>
   </header>
@@ -1486,5 +1573,7 @@
       background: var(--accent);
     }
   </style>
+  <!-- Theme script -->
+  <script src="theme.js"></script>
 </body>
 </html>

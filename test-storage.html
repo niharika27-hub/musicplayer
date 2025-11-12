@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test LocalStorage</title>
+</head>
+<body>
+  <h1>LocalStorage Test</h1>
+  <button onclick="testStorage()">Test Storage</button>
+  <button onclick="checkStorage()">Check Storage</button>
+  <div id="result"></div>
+
+  <script>
+    function testStorage() {
+      const testUser = {
+        firstName: "Test",
+        lastName: "User", 
+        email: "test@example.com",
+        password: "test123"
+      };
+      
+      let users = JSON.parse(localStorage.getItem('users')) || [];
+      users.push(testUser);
+      localStorage.setItem('users', JSON.stringify(users));
+      
+      document.getElementById('result').innerHTML = '<p style="color: green;">User added to localStorage!</p>';
+    }
+    
+    function checkStorage() {
+      const users = localStorage.getItem('users');
+      const currentUser = localStorage.getItem('currentUser');
+      
+      document.getElementById('result').innerHTML = `
+        <h3>Current localStorage:</h3>
+        <p><strong>users:</strong> ${users || 'Empty'}</p>
+        <p><strong>currentUser:</strong> ${currentUser || 'Not logged in'}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
