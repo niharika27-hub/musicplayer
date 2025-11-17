@@ -5,60 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Catifyy</title>
   <link rel="stylesheet" href="index.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
- 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
-  <!-- nav bar -->
+  <!-- React Navbar (replaces static HTML navbar) -->
+  <div id="react-navbar-root"></div>
 
- 
-
-  <header class="nav">
-    <div class="container nav-inner">
-      <!-- logo -->
-      <div class="brand">
-        <img id="logo-img" src="./images/cat.png" height="100px" width="120px" alt="Catifyy Logo">
-      </div>
-
-      <!-- search -->
-      <div class="search-wrap">
-        <form class="search" method="post">
-          <i class="fa-solid fa-circle fa-xs" style="color: #000000;"></i>
-          <input id="q" name="q" placeholder="Search songs, artists, albums..." />
-        </form>
-
-        <!-- buttons on nav bar -->
-        <div class="filters">
-          <div class="filter-group">
-            <input type="radio" name="scope" id="f-songs" />
-            <label class="chip" for="f-songs"><a href="songs.html">Songs</a></label>
-            
-            <input type="radio" name="scope" id="f-albums" />
-            <label class="chip" for="f-albums"><a href="albums.html">Albums</a></label>
-          
-            <input type="radio" name="scope" id="f-library" />
-            <label class="chip" for="f-library"><a href="library.html">Library</a></label>
-
-            <input type="radio" name="scope" id="f-playlists" />
-            <label class="chip" for="f-playlists"><a href="playlist.html">Playlist</a></label>
-            
-            <input type="radio" name="scope" id="f-liked" />
-            <label class="chip" for="f-liked"><a href="liked.html">Liked</a></label>
-          </div>
-        </div>
-      </div>
-
-      <nav class="nav-links">
-        <a href="index.html" title="Home"><i class="fa-solid fa-house-user"></i></a>
-        <a href="create.html" title="Create Playlist"><i class="fa-solid fa-plus"></i></a>
-
-        <!-- Theme toggle button -->
-        <button id="theme-toggle" class="nav-toggle" title="Toggle theme" aria-label="Toggle theme">
-          <i id="theme-icon" class="fa-solid fa-moon"></i>
-        </button>
-
-        <a href="signup.html" title="Login"><i class="fa-solid fa-user"></i></a>
+  <!-- Load React and ReactDOM from CDN -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  
+  <!-- React Navbar Component -->
+  <script src="navbar-component.js"></script>
       </nav>
     </div>
   </header>

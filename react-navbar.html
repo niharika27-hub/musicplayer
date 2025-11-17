@@ -1,0 +1,150 @@
+<!-- React Navbar Integration -->
+<!-- Add this div where you want the React navbar to appear -->
+<div id="react-navbar-root"></div>
+
+<!-- Load React and ReactDOM from CDN -->
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+<!-- Navbar Component Script -->
+<script>
+const { useState, useEffect } = React;
+
+const Navbar = () => {
+  const [theme, setTheme] = useState('dark');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('theme') || 'dark';
+    setTheme(saved);
+    applyTheme(saved);
+  }, []);
+
+  const applyTheme = (themeName) => {
+    const root = document.documentElement;
+    const themes = {
+      dark: {
+        '--bg': '#1a1d2e',
+        '--surface': '#252941',
+        '--text': '#e1e6f0',
+        '--primary': '#7c96ff',
+        '--accent': '#ff8db1',
+        '--shadow-dark': 'rgba(0, 0, 0, 0.5)',
+        '--shadow-light': 'rgba(124, 150, 255, 0.08)'
+      },
+      light: {
+        '--bg': '#eaf1ff',
+        '--surface': '#f6f8ff',
+        '--text': '#2d3348',
+        '--primary': '#6e85ff',
+        '--accent': '#ff8db1',
+        '--shadow-dark': '#ccd6ec',
+        '--shadow-light': '#ffffff'
+      }
+    };
+    
+    const colors = themes[themeName];
+    Object.keys(colors).forEach(key => {
+      root.style.setProperty(key, colors[key]);
+    });
+  };
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    applyTheme(newTheme);
+  };
+
+  const getLogoSrc = () => {
+    return theme === 'dark' ? './images/image.png' : './images/cat.png';
+  };
+
+  const getLogoStyle = () => {
+    return theme === 'dark' 
+      ? { width: '160px', height: '110px' }
+      : { width: '120px', height: '100px' };
+  };
+
+  return React.createElement('header', { className: 'nav' },
+    React.createElement('div', { className: 'container nav-inner' },
+      React.createElement('div', { className: 'brand' },
+        React.createElement('img', {
+          id: 'logo-img',
+          src: getLogoSrc(),
+          style: getLogoStyle(),
+          alt: 'Catifyy Logo'
+        })
+      ),
+      React.createElement('div', { className: 'search-wrap' },
+        React.createElement('form', {
+          className: 'search',
+          method: 'post',
+          onSubmit: (e) => e.preventDefault()
+        },
+          React.createElement('i', {
+            className: 'fa-solid fa-circle fa-xs',
+            style: { color: '#000000' }
+          }),
+          React.createElement('input', {
+            id: 'q',
+            name: 'q',
+            placeholder: 'Search songs, artists, albums...'
+          })
+        ),
+        React.createElement('div', { className: 'filters' },
+          React.createElement('div', { className: 'filter-group' },
+            React.createElement('input', { type: 'radio', name: 'scope', id: 'f-songs' }),
+            React.createElement('label', { className: 'chip', htmlFor: 'f-songs' },
+              React.createElement('a', { href: 'songs.html' }, 'Songs')
+            ),
+            React.createElement('input', { type: 'radio', name: 'scope', id: 'f-albums' }),
+            React.createElement('label', { className: 'chip', htmlFor: 'f-albums' },
+              React.createElement('a', { href: 'albums.html' }, 'Albums')
+            ),
+            React.createElement('input', { type: 'radio', name: 'scope', id: 'f-library' }),
+            React.createElement('label', { className: 'chip', htmlFor: 'f-library' },
+              React.createElement('a', { href: 'library.html' }, 'Library')
+            ),
+            React.createElement('input', { type: 'radio', name: 'scope', id: 'f-playlists' }),
+            React.createElement('label', { className: 'chip', htmlFor: 'f-playlists' },
+              React.createElement('a', { href: 'playlist.html' }, 'Playlist')
+            ),
+            React.createElement('input', { type: 'radio', name: 'scope', id: 'f-liked' }),
+            React.createElement('label', { className: 'chip', htmlFor: 'f-liked' },
+              React.createElement('a', { href: 'liked.html' }, 'Liked')
+            )
+          )
+        )
+      ),
+      React.createElement('nav', { className: 'nav-links' },
+        React.createElement('a', { href: 'index.html', title: 'Home' },
+          React.createElement('i', { className: 'fa-solid fa-house-user' })
+        ),
+        React.createElement('a', { href: 'create.html', title: 'Create Playlist' },
+          React.createElement('i', { className: 'fa-solid fa-plus' })
+        ),
+        React.createElement('button', {
+          id: 'theme-toggle',
+          className: 'nav-toggle',
+          title: 'Toggle theme',
+          'aria-label': 'Toggle theme',
+          onClick: toggleTheme
+        },
+          React.createElement('i', {
+            id: 'theme-icon',
+            className: `fa-solid fa-${theme === 'dark' ? 'moon' : 'sun'}`
+          })
+        ),
+        React.createElement('a', { href: 'signup.html', title: 'Login' },
+          React.createElement('i', { className: 'fa-solid fa-user' })
+        )
+      )
+    )
+  );
+};
+
+// Mount the navbar
+const container = document.getElementById('react-navbar-root');
+const root = ReactDOM.createRoot(container);
+root.render(React.createElement(React.StrictMode, null, React.createElement(Navbar)));
+</script>
